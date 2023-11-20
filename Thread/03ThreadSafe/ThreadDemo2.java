@@ -1,4 +1,3 @@
-package ThreadSafe;
 
 public class ThreadDemo2 {
     // 卖100张电影票，3个窗口，用同步方法实现

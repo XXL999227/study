@@ -1,5 +1,3 @@
-package ThreadSafe;
-
 public class ThreadDemo {
     // 需求：卖100张电影票，3个窗口同时卖票
 
