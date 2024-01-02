@@ -68,6 +68,5 @@ public class TestDemo2 {
 
         cook.start();
         foodie.start();
-        Thread.State state = cook.getState();
     }
 }
