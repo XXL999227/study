@@ -11,7 +11,7 @@ import java.util.List;
 public class Test6 {
     static class MyThread extends Thread {
         List<Integer> list;
-        List<Integer> list1 = new ArrayList<>();
+        List<Integer> list1 = new ArrayList<>();// list1可以在这里创建，作为类的成员变量被创建在堆内存中
 
         public MyThread(String name, List<Integer> list) {
             super(name);
@@ -20,6 +20,7 @@ public class Test6 {
 
         @Override
         public void run() {
+            // List<Integer> list1 = new ArrayList<>();// list1也可以在这里创建，作为方法的局部变量被创建在当前线程的栈内存中
             while (true) {
                 // 注意这里不能用this，因为this代表的是MyThread对象，而不是Test6对象
                 // MyThread对象有两个，所以不能用this
