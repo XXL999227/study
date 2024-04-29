@@ -1,0 +1,39 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/cloud_order?useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  application:
+    name: order-service # order-service 服务名称
+  cloud:
+    nacos:
+      server-addr: localhost:8848 # nacos 服务地址
+      discovery:
+        cluster-name: HZ # 配置集群名称，也就是机房位置
+#        namespace: 724b3acf-c1f7-4c2c-bc55-872b305837f6 # 配置命名空间，dev环境
+#        ephemeral: false # 是否是临时实例
+feign:
+  client:
+    config:
+      default: # 这里用default就是全局配置，如果是写服务名称，则是针对某个微服务的配置
+        loggerLevel: BASIC # feign日志级别
+  httpclient:
+    enabled: true # 开启feign对HttpClient的支持
+    max-connections: 200 # 最大的连接数
+    max-connections-per-route: 50 # 每个路径的最大连接数
+mybatis:
+  type-aliases-package: cn.itcast.user.pojo
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    cn.itcast: debug
+  pattern:
+    dateformat: MM-dd HH:mm:ss:SSS
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:10086/eureka # 注册中心地址,如果是集群,则用逗号分隔
