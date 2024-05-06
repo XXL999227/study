@@ -1,5 +1,9 @@
 package cn.itcast.mq;
 
+import org.springframework.amqp.core.ExchangeTypes;
+import org.springframework.amqp.rabbit.annotation.Exchange;
+import org.springframework.amqp.rabbit.annotation.Queue;
+import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -49,4 +53,27 @@ public class SpringRabbitListener {
         System.out.println("消费者2接收到fanout.queue2消息：" + message);
     }
 
+
+    /**
+     * 监听发布/订阅模式 路由direct exchange
+     *
+     * @param message 消息
+     */
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = "direct.queue1"),
+            exchange = @Exchange(value = "direct.exchange", type = ExchangeTypes.DIRECT),
+            key = {"red", "blue"}
+    ))
+    public void listenDirectQueue1(String message) {
+        System.out.println("消费者1接收到direct.queue1消息：" + message);
+    }
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = "direct.queue2"),
+            exchange = @Exchange(value = "direct.exchange", type = ExchangeTypes.DIRECT),
+            key = {"red", "yellow"}
+    ))
+    public void listenDirectQueue2(String message) {
+        System.out.println("消费者2接收到direct.queue2消息：" + message);
+    }
 }

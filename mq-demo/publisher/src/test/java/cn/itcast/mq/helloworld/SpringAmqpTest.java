@@ -57,4 +57,16 @@ public class SpringAmqpTest {
         // 发送消息，参数分别是：交互机名称、RoutingKey（暂时为空）、消息
         rabbitTemplate.convertAndSend(exchangeName, "", message);
     }
+
+    /**
+     * 测试发送消息到发布/订阅模式 路由exchange
+     */
+    @Test
+    public void testSendMessageToDirectExchange() {
+        // 交换机名称
+        String exchangeName = "direct.exchange";
+        rabbitTemplate.convertAndSend(exchangeName, "blue", "hello, blue direct message!");
+        rabbitTemplate.convertAndSend(exchangeName, "yellow", "hello, green direct message!");
+        rabbitTemplate.convertAndSend(exchangeName, "red", "hello, yellow direct message!");
+    }
 }
