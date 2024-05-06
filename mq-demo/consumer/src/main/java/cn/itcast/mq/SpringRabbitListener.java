@@ -76,4 +76,27 @@ public class SpringRabbitListener {
     public void listenDirectQueue2(String message) {
         System.out.println("消费者2接收到direct.queue2消息：" + message);
     }
+
+    /**
+     * 监听发布/订阅模式 主题topic exchange
+     *
+     * @param message 消息
+     */
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = "topic.queue1"),
+            exchange = @Exchange(value = "topic.exchange", type = ExchangeTypes.TOPIC),
+            key = {"china.#"}
+    ))
+    public void listenTopicQueue1(String message) {
+        System.out.println("消费者1接收到topic.queue1消息 china的所有消息：" + message);
+    }
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = "topic.queue2"),
+            exchange = @Exchange(value = "topic.exchange", type = ExchangeTypes.TOPIC),
+            key = {"#.news"}
+    ))
+    public void listenTopicQueue2(String message) {
+        System.out.println("消费者2接收到topic.queue2消息 所有news的消息：" + message);
+    }
 }
