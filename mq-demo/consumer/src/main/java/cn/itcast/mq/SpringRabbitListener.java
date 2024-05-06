@@ -33,4 +33,20 @@ public class SpringRabbitListener {
         System.err.println("消费者2。。。接收到work.queue消息：" + message + "  time：" + LocalTime.now());
         Thread.sleep(200);
     }
+
+    /**
+     * 监听发布/订阅模式 广播fanout exchange
+     *
+     * @param message 消息
+     */
+    @RabbitListener(queues = "fanout.queue1")
+    public void listenFanoutQueue1(String message) {
+        System.out.println("消费者1接收到fanout.queue1消息：" + message);
+    }
+
+    @RabbitListener(queues = "fanout.queue2")
+    public void listenFanoutQueue2(String message) {
+        System.out.println("消费者2接收到fanout.queue2消息：" + message);
+    }
+
 }

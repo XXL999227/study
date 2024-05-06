@@ -44,4 +44,17 @@ public class SpringAmqpTest {
             System.out.println("发送消息成功：【" + message + "】");
         }
     }
+
+    /**
+     * 测试发送消息到发布/订阅模式 广播exchange
+     */
+    @Test
+    public void testSendMessageToFanoutExchange() {
+        // 交换机名称
+        String exchangeName = "itcast.fanout";
+        // 消息
+        String message = "hello, fanout message!";
+        // 发送消息，参数分别是：交互机名称、RoutingKey（暂时为空）、消息
+        rabbitTemplate.convertAndSend(exchangeName, "", message);
+    }
 }
