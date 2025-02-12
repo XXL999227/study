@@ -1,4 +1,5 @@
 import java.util.Arrays;
+
 // 可以参考leetcode 912题排序数组
 //https://leetcode.cn/problems/sort-an-array/submissions/
 public class Sort {
@@ -138,5 +139,43 @@ public class Sort {
         return nums;
     }
 
-    // todo 快速排序
+    // 快速排序，关键点在哨兵划分成子数组，递归实现
+    public int[] quickSort(int[] nums) {
+        quickSort(nums, 0, nums.length - 1);
+        return nums;
+    }
+
+    private void quickSort(int[] nums, int left, int right) {
+        // 如果子数组长度小于等于1，就不用排序了
+        if (left >= right) {
+            return;
+        }
+        // 哨兵划分成两个子数组，返回哨兵的索引
+        int pivotIndex = partition(nums, left, right);
+        // 递归排序左子数组
+        quickSort(nums, left, pivotIndex - 1);
+        // 递归排序右子数组
+        quickSort(nums, pivotIndex + 1, right);
+    }
+
+    private int partition(int[] nums, int left, int right) {
+        int i = left, j = right;
+        while (i < j) {
+            while (i < j && nums[j] >= nums[left]) { // j从右往左找到第一个小于哨兵的数
+                j--;
+            }
+            while (i < j && nums[i] <= nums[left]) { // i从左往右找到第一个大于哨兵的数
+                i++;
+            }
+            swap(nums, i, j);// 交换这两个数
+        }
+        swap(nums, left, i);// 此时i等于j，交换基准数和i
+        return i;
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
 }
